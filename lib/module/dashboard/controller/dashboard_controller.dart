@@ -1,19 +1,33 @@
-import 'package:flutter/material.dart';
-import '../view/dashboard_view.dart';
 
-class DashboardController extends State<DashboardView> {
-  static late DashboardController instance;
-  late DashboardView view;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../state/dashboard_state.dart';
+import 'package:hyper_ui/bloc_util.dart';
+import 'package:injectable/injectable.dart';
+
+@singleton
+class DashboardController extends Cubit<DashboardState> implements IBlocBase {
+  DashboardController() : super(DashboardState());
 
   @override
   void initState() {
-    instance = this;
-    super.initState();
+    //initState event
   }
 
   @override
-  void dispose() => super.dispose();
+  void dispose() {
+    //dispose event
+  }
 
   @override
-  Widget build(BuildContext context) => widget.build(context, this);
+  void ready() {
+    //ready event
+  }
+
+  increment() {
+    state.counter++;
+    emit(state.copyWith());
+  }
 }
+    
+      
+    

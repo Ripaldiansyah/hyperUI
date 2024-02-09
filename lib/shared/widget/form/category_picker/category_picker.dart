@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class QCategoryPicker extends StatefulWidget {
   final List<Map<String, dynamic>> items;
@@ -129,20 +130,35 @@ class _QCategoryPickerState extends State<QCategoryPicker> {
                         }
 
                         return Container(
+                          height: MediaQuery.of(context).size.height * 0.04,
                           margin: const EdgeInsets.only(
                             right: 12.0,
                           ),
                           child: ElevatedButton(
                             style: selected
-                                ? null
+                                ? ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).primaryColor,
+                                    elevation: 0.0,
+                                  )
                                 : ElevatedButton.styleFrom(
                                     backgroundColor:
                                         Theme.of(context).disabledColor,
                                     elevation: 0.0,
                                   ),
                             onPressed: () => updateIndex(index),
-                            child: Text(item["label"]),
-                          ),
+                            child: Text(item["label"],
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                          )
+                              .animate()
+                              .move(
+                                duration: ((index * 100) + 500).ms,
+                              )
+                              .fadeIn(
+                                duration: ((index * 100) + 500).ms,
+                              ),
                         );
                       }),
                     ),

@@ -12,7 +12,7 @@ class QTextField extends StatefulWidget {
   final int? maxLength;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final Function(String)? onSubmitted;
 
   const QTextField({
@@ -24,7 +24,7 @@ class QTextField extends StatefulWidget {
     this.hint,
     this.helper,
     this.maxLength,
-    required this.onChanged,
+    this.onChanged,
     this.onSubmitted,
     this.obscure = false,
     this.enabled = true,
@@ -77,15 +77,26 @@ class _QTextFieldState extends State<QTextField> {
         maxLength: widget.maxLength,
         obscureText: widget.obscure,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
           labelText: widget.label,
           suffixIcon: Icon(
-            widget.suffixIcon ?? Icons.abc,
+            widget.suffixIcon,
           ),
+
+          // border: InputBorder.none,
           helperText: widget.helper,
           hintText: widget.hint,
         ),
         onChanged: (value) {
-          widget.onChanged(value);
+          widget.onChanged!(value);
         },
         onFieldSubmitted: (value) {
           if (widget.onSubmitted != null) widget.onSubmitted!(value);

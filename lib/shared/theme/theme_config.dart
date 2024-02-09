@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor = Colors.blueGrey[800]!;
-Color secondaryColor = const Color(0xff6c757d);
-Color disabledColor = const Color(0xff9fa5aa);
+Color primaryColor = Color(0xff3983f9);
+Color secondaryColor = Colors.white;
+Color disabledColor = Color(0xffededed);
 Color textColor = Colors.blueGrey[900]!;
 Color secondaryTextColor = const Color(0xff6c7592);
 Color scaffoldBackgroundColor = Colors.white;

@@ -8,10 +8,13 @@ class QButton extends StatelessWidget {
   final double? height;
   final IconData? icon;
   final IconData? sufixIcon;
-  final Color? color;
+  final Color? backgroundColor;
+  final Color? fontColor;
+  final Color? iconColor;
   final bool spaceBetween;
   final ThemeSize size;
   final double? fontSize;
+  final double? elevation;
 
   QButton({
     Key? key,
@@ -21,10 +24,13 @@ class QButton extends StatelessWidget {
     this.height,
     this.icon,
     this.sufixIcon,
-    this.color,
+    this.backgroundColor,
+    this.fontColor,
+    this.iconColor,
     this.spaceBetween = false,
     this.size = ThemeSize.md,
     this.fontSize,
+    this.elevation,
   }) : super(key: key);
 
   @override
@@ -46,7 +52,8 @@ class QButton extends StatelessWidget {
       height: widgetHeight,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? primaryColor,
+          elevation: elevation,
+          backgroundColor: backgroundColor ?? primaryColor,
         ),
         onPressed: () => onPressed(),
         child: Row(
@@ -56,6 +63,7 @@ class QButton extends StatelessWidget {
               Icon(
                 icon!,
                 size: widgetIconSize,
+                color: iconColor,
               ),
               SizedBox(
                 width: 6.0,
@@ -66,7 +74,7 @@ class QButton extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: fontSize ?? widgetFontSize,
-                color: Colors.white,
+                color: fontColor ?? Colors.white,
               ),
             ),
             if (spaceBetween && sufixIcon != null) Spacer(),

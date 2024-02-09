@@ -1,66 +1,101 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyper_ui/core.dart';
+import '../../dashboard/view/dashboard_view.dart';
+import '../controller/main_navigation_controller.dart';
+import '../state/main_navigation_state.dart';
+import 'package:get_it/get_it.dart';
 
 class MainNavigationView extends StatefulWidget {
-  MainNavigationView({Key? key}) : super(key: key);
+  const MainNavigationView({Key? key}) : super(key: key);
 
-  Widget build(context, MainNavigationController controller) {
-    controller.view = this;
+  @override
+  State<MainNavigationView> createState() => _MainNavigationViewState();
+}
 
+class _MainNavigationViewState extends State<MainNavigationView> {
+  MainNavigationController controller = MainNavigationController();
+
+  @override
+  void initState() {
+    if (GetIt.I.isRegistered<MainNavigationController>()) {
+      GetIt.I.unregister<MainNavigationController>();
+    }
+    GetIt.I.registerSingleton(controller);
+    controller.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => controller.ready(),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (BuildContext context) => controller,
+      child: BlocListener<MainNavigationController, MainNavigationState>(
+        listener: (context, state) {},
+        child: BlocBuilder<MainNavigationController, MainNavigationState>(
+          builder: (context, state) {
+            final bloc = context.read<MainNavigationController>();
+            return buildView(context, bloc, state);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget buildView(
+    BuildContext context,
+    MainNavigationController controller,
+    MainNavigationState state,
+  ) {
     return DefaultTabController(
-      length: 4,
-      initialIndex: controller.selectedIndex,
+      length: 3,
+      initialIndex: controller.state.selectedIndex,
       child: Scaffold(
         body: IndexedStack(
-          index: controller.selectedIndex,
-          children: [],
+          index: controller.state.selectedIndex,
+          children: [
+            DashboardView(),
+            OrderView(),
+            ProfileView(),
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: controller.selectedIndex,
+          currentIndex: controller.state.selectedIndex,
           onTap: (newIndex) => controller.updateIndex(newIndex),
-          items: [
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: primaryColor,
+          fixedColor: secondaryColor,
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                MdiIcons.viewDashboard,
+                Icons.dashboard,
               ),
               label: "Dashboard",
             ),
             BottomNavigationBarItem(
-              icon: Badge(
-                label: Text(
-                  "4",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                child: Icon(MdiIcons.table),
+              icon: Icon(
+                Icons.list,
               ),
               label: "Order",
-            ),
-            BottomNavigationBarItem(
-              icon: Badge(
-                label: Text(
-                  "4",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                child: Icon(Icons.favorite),
-              ),
-              label: "Favorite",
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
               ),
-              label: "Profile",
+              label: "Me",
             ),
           ],
         ),
       ),
     );
   }
-
-  @override
-  State<MainNavigationView> createState() => MainNavigationController();
 }

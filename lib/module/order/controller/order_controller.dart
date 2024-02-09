@@ -1,20 +1,33 @@
-import 'package:flutter/material.dart';
-import 'package:hyper_ui/core.dart';
-import '../view/order_view.dart';
 
-class OrderController extends State<OrderView> {
-  static late OrderController instance;
-  late OrderView view;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../state/order_state.dart';
+import 'package:hyper_ui/bloc_util.dart';
+import 'package:injectable/injectable.dart';
+
+@singleton
+class OrderController extends Cubit<OrderState> implements IBlocBase {
+  OrderController() : super(OrderState());
 
   @override
   void initState() {
-    instance = this;
-    super.initState();
+    //initState event
   }
 
   @override
-  void dispose() => super.dispose();
+  void dispose() {
+    //dispose event
+  }
 
   @override
-  Widget build(BuildContext context) => widget.build(context, this);
+  void ready() {
+    //ready event
+  }
+
+  increment() {
+    state.counter++;
+    emit(state.copyWith());
+  }
 }
+    
+      
+    

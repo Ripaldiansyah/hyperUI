@@ -1,7 +1,11 @@
 import 'package:hyper_ui/core.dart';
 import 'package:flutter/material.dart';
+import 'package:hyper_ui/service/db_service/db_service.dart';
 
 void main() async {
+  configureDependencies();
+  WidgetsFlutterBinding.ensureInitialized();
+  await DBService.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Diointerceptors.init();
   runMainApp();
@@ -45,19 +49,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       navigatorKey: Get.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: getDefaultTheme(),
-      home: MainNavigationView(),
-      onGenerateRoute: (routeSettings) {
-        print(routeSettings.name);
-        return null;
-      },
-      builder: (context, child) {
-        print(Get.currentContext.toString());
-        return DebugView(
-          context: context,
-          child: child,
-          visible: true,
-        );
-      },
+      home: SplashView(),
     );
   }
 }

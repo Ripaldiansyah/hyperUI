@@ -9,7 +9,7 @@ ThemeData getDefaultTheme() {
     colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
     appBarTheme: AppBarTheme(
       elevation: 0.6,
-      titleTextStyle: GoogleFonts.ibmPlexSans(
+      titleTextStyle: GoogleFonts.roboto(
         color: Color(0xff495057),
         fontWeight: FontWeight.bold,
       ),
@@ -28,22 +28,22 @@ ThemeData getDefaultTheme() {
       labelColor: Colors.blueGrey[900]!,
     ),
     textTheme: TextTheme(
-      titleSmall: GoogleFonts.ibmPlexSans(
+      titleSmall: GoogleFonts.roboto(
         color: textColor,
       ),
-      titleMedium: GoogleFonts.ibmPlexSans(
+      titleMedium: GoogleFonts.roboto(
         color: textColor,
       ),
-      titleLarge: GoogleFonts.ibmPlexSans(
+      titleLarge: GoogleFonts.roboto(
         color: textColor,
       ),
-      bodyLarge: GoogleFonts.ibmPlexSans(
+      bodyLarge: GoogleFonts.roboto(
         color: textColor,
       ),
-      bodySmall: GoogleFonts.ibmPlexSans(
-        color: textColor,
+      bodySmall: GoogleFonts.roboto(
+        color: Colors.white,
       ),
-      bodyMedium: GoogleFonts.ibmPlexSans(
+      bodyMedium: GoogleFonts.roboto(
         color: textColor,
       ),
     ),
@@ -97,6 +97,13 @@ ThemeData getDefaultTheme() {
           color: Colors.grey[300]!,
         ),
       ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xffc67c4e),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          )),
     ),
   );
 }

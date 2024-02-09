@@ -1,20 +1,33 @@
-import 'package:flutter/material.dart';
-import 'package:hyper_ui/core.dart';
-import '../view/profile_view.dart';
 
-class ProfileController extends State<ProfileView> {
-  static late ProfileController instance;
-  late ProfileView view;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../state/profile_state.dart';
+import 'package:hyper_ui/bloc_util.dart';
+import 'package:injectable/injectable.dart';
+
+@singleton
+class ProfileController extends Cubit<ProfileState> implements IBlocBase {
+  ProfileController() : super(ProfileState());
 
   @override
   void initState() {
-    instance = this;
-    super.initState();
+    //initState event
   }
 
   @override
-  void dispose() => super.dispose();
+  void dispose() {
+    //dispose event
+  }
 
   @override
-  Widget build(BuildContext context) => widget.build(context, this);
+  void ready() {
+    //ready event
+  }
+
+  increment() {
+    state.counter++;
+    emit(state.copyWith());
+  }
 }
+    
+      
+    
